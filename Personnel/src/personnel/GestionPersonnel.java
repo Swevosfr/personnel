@@ -1,5 +1,5 @@
 package personnel;
-
+import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.SortedSet;
@@ -86,7 +86,10 @@ public class GestionPersonnel implements Serializable
 		ligues.add(ligue);
 		return ligue;
 	}
-	
+	void updateEmploye(Employe employe) throws SauvegardeImpossible
+	{
+		passerelle.updateEmploye(employe);
+	}
 	public Ligue addLigue(int id, String nom)
 	{
 		Ligue ligue = new Ligue(this, id, nom);

@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
@@ -15,9 +16,15 @@ public class Employe implements Serializable, Comparable<Employe>
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
 	private Ligue ligue;
+	private int id;
 	private GestionPersonnel gestionPersonnel;
+	private LocalDate dateDebut, dateFin;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
+	/** J'ai rajouté dans la classe Employé les variables LocalDate deteDebut et dateFin
+	 * pour pouvoir les mettre en paramètres dans le constructeur employé.
+	 */
+	
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, LocalDate dateDebut, LocalDate datefin, String mail, String password)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -110,7 +117,43 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		this.mail = mail;
 	}
-
+	
+	public LocalDate getDateDebut()
+	{
+		return dateDebut;
+	}
+	
+	public void setDateDebut (LocalDate datedebut) throws ErreurDateDepart, SauvegardeImpossible 
+	{
+		if(dateFin == null)
+			this.dateDebut = datedebut;
+		else if (datedebut.isAfter(dateFin))
+			throw new ErreurDateDepart(datedebut, dateFin);
+		
+		else {
+			this.dateDebut = datedebut;
+			gestionPersonnel.updateEmploye(this);
+		}
+	}
+	
+	public LocalDate getDateFin()
+	{
+		return dateFin;
+	}
+	
+	public void setDateFin (LocalDate datefin) throws ErreurDateFin, SauvegardeImpossible
+	{
+		if(dateDebut == null)
+			this.dateFin = datefin;
+		else if (datefin.isBefore(dateDebut))
+				throw new ErreurDateFin(datefin, dateDebut);
+		
+		else {
+				this.dateFin = datefin;
+				gestionPersonnel.updateEmploye(this);
+		}
+	}
+	
 	/**
 	 * Retourne vrai ssi le password passé en paramètre est bien celui
 	 * de l'employé.
