@@ -51,3 +51,4 @@ public class Serialization implements personnel.Passerelle
 		return -1;
 	}
 }
+

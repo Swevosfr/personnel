@@ -1,14 +1,15 @@
 package personnel;
 
 import java.io.Serializable;
+
 import java.time.LocalDate;
 
 /**
- * Employé d'une ligue hébergée par la M2L. Certains peuvent 
- * être administrateurs des employés de leur ligue.
- * Un seul employé, rattaché à aucune ligue, est le root.
- * Il est impossible d'instancier directement un employé, 
- * il faut passer la méthode {@link Ligue#addEmploye addEmploye}.
+ * EmployÃ© d'une ligue hÃ©bergÃ©e par la M2L. Certains peuvent 
+ * Ãªtre administrateurs des employÃ©s de leur ligue.
+ * Un seul employÃ©, rattachÃ© Ã  aucune ligue, est le root.
+ * Il est impossible d'instancier directement un employÃ©, 
+ * il faut passer la mÃ©thode {@link Ligue#addEmploye addEmploye}.
  */
 
 public class Employe implements Serializable, Comparable<Employe>
@@ -17,14 +18,10 @@ public class Employe implements Serializable, Comparable<Employe>
 	private String nom, prenom, password, mail;
 	private Ligue ligue;
 	private int id;
-	private GestionPersonnel gestionPersonnel;
 	private LocalDate dateDebut, dateFin;
+	private GestionPersonnel gestionPersonnel;
 	
-	/** J'ai rajouté dans la classe Employé les variables LocalDate deteDebut et dateFin
-	 * pour pouvoir les mettre en paramètres dans le constructeur employé.
-	 */
-	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, LocalDate dateDebut, LocalDate datefin, String mail, String password)
+	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -34,12 +31,25 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.ligue = ligue;
 	}
 	
+	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue,int id, String nom, String prenom, String mail, LocalDate dateDebut, LocalDate dateFin,String password)
+	{
+		this.gestionPersonnel = gestionPersonnel;
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.password = password;
+		this.mail = mail;
+		this.ligue = ligue;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+	}
+	
 	/**
-	 * Retourne vrai ssi l'employé est administrateur de la ligue 
-	 * passée en paramètre.
-	 * @return vrai ssi l'employé est administrateur de la ligue 
-	 * passée en paramètre.
-	 * @param ligue la ligue pour laquelle on souhaite vérifier si this 
+	 * Retourne vrai ssi l'employÃ© est administrateur de la ligue 
+	 * passÃ©e en paramÃ¨tre.
+	 * @return vrai ssi l'employÃ© est administrateur de la ligue 
+	 * passÃ©e en paramÃ¨tre.
+	 * @param ligue la ligue pour laquelle on souhaite vÃ©rifier si this 
 	 * est l'admininstrateur.
 	 */
 	
@@ -49,8 +59,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 	
 	/**
-	 * Retourne vrai ssi l'employé est le root.
-	 * @return vrai ssi l'employé est le root.
+	 * Retourne vrai ssi l'employÃ© est le root.
+	 * @return vrai ssi l'employÃ© est le root.
 	 */
 	
 	public boolean estRoot()
@@ -59,8 +69,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 	
 	/**
-	 * Retourne le nom de l'employé.
-	 * @return le nom de l'employé. 
+	 * Retourne le nom de l'employÃ©.
+	 * @return le nom de l'employÃ©. 
 	 */
 	
 	public String getNom()
@@ -69,7 +79,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 
 	/**
-	 * Change le nom de l'employé.
+	 * Change le nom de l'employÃ©.
 	 * @param nom le nouveau nom.
 	 */
 	
@@ -79,8 +89,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 
 	/**
-	 * Retourne le prénom de l'employé.
-	 * @return le prénom de l'employé.
+	 * Retourne le prÃ©nom de l'employÃ©.
+	 * @return le prÃ©nom de l'employÃ©.
 	 */
 	
 	public String getPrenom()
@@ -89,18 +99,26 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 	
 	/**
-	 * Change le prénom de l'employé.
-	 * @param prenom le nouveau prénom de l'employé. 
+	 * Change le prÃ©nom de l'employÃ©.
+	 * @param prenom le nouveau prÃ©nom de l'employÃ©. 
 	 */
 
 	public void setPrenom(String prenom)
 	{
 		this.prenom = prenom;
 	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/**
-	 * Retourne le mail de l'employé.
-	 * @return le mail de l'employé.
+	 * Retourne le mail de l'employÃ©.
+	 * @return le mail de l'employÃ©.
 	 */
 	
 	public String getMail()
@@ -109,57 +127,21 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 	
 	/**
-	 * Change le mail de l'employé.
-	 * @param mail le nouveau mail de l'employé.
+	 * Change le mail de l'employÃ©.
+	 * @param mail le nouveau mail de l'employÃ©.
 	 */
 
 	public void setMail(String mail)
 	{
 		this.mail = mail;
 	}
-	
-	public LocalDate getDateDebut()
-	{
-		return dateDebut;
-	}
-	
-	public void setDateDebut (LocalDate datedebut) throws ErreurDateDepart, SauvegardeImpossible 
-	{
-		if(dateFin == null)
-			this.dateDebut = datedebut;
-		else if (datedebut.isAfter(dateFin))
-			throw new ErreurDateDepart(datedebut, dateFin);
-		
-		else {
-			this.dateDebut = datedebut;
-			gestionPersonnel.updateEmploye(this);
-		}
-	}
-	
-	public LocalDate getDateFin()
-	{
-		return dateFin;
-	}
-	
-	public void setDateFin (LocalDate datefin) throws ErreurDateFin, SauvegardeImpossible
-	{
-		if(dateDebut == null)
-			this.dateFin = datefin;
-		else if (datefin.isBefore(dateDebut))
-				throw new ErreurDateFin(datefin, dateDebut);
-		
-		else {
-				this.dateFin = datefin;
-				gestionPersonnel.updateEmploye(this);
-		}
-	}
-	
+
 	/**
-	 * Retourne vrai ssi le password passé en paramètre est bien celui
-	 * de l'employé.
-	 * @return vrai ssi le password passé en paramètre est bien celui
-	 * de l'employé.
-	 * @param password le password auquel comparer celui de l'employé.
+	 * Retourne vrai ssi le password passÃ© en paramÃ¨tre est bien celui
+	 * de l'employÃ©.
+	 * @return vrai ssi le password passÃ© en paramÃ¨tre est bien celui
+	 * de l'employÃ©.
+	 * @param password le password auquel comparer celui de l'employÃ©.
 	 */
 	
 	public boolean checkPassword(String password)
@@ -168,8 +150,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 
 	/**
-	 * Change le password de l'employé.
-	 * @param password le nouveau password de l'employé. 
+	 * Change le password de l'employÃ©.
+	 * @param password le nouveau password de l'employÃ©. 
 	 */
 	
 	public void setPassword(String password)
@@ -178,18 +160,49 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 
 	/**
-	 * Retourne la ligue à laquelle l'employé est affecté.
-	 * @return la ligue à laquelle l'employé est affecté.
+	 * Retourne la ligue Ã  laquelle l'employÃ© est affectÃ©.
+	 * @return la ligue Ã  laquelle l'employÃ© est affectÃ©.
 	 */
 	
 	public Ligue getLigue()
 	{
 		return ligue;
 	}
+	
+	public LocalDate getDateDebut() {
+		return dateDebut;
+	}
+	public LocalDate getDateFin() {
+		return dateFin;
+	}
+	
+	
+	public void setDateDebut(LocalDate datedebut) throws ErreurDateDepart, SauvegardeImpossible{
+		if(dateFin == null)
+			this.dateDebut = datedebut;
+		else if(datedebut.isAfter(dateFin))
+			throw new ErreurDateDepart(datedebut, dateFin);
+		else {
+			this.dateDebut = datedebut;
+			gestionPersonnel.updateEmploye(this);
+		}
+			
+	}
+	
+	public void setDateFin(LocalDate datefin) throws ErreurDateFin, SauvegardeImpossible{
+		if(dateDebut ==null )
+			this.dateFin = datefin;
+		else if(datefin.isBefore(dateDebut))
+			throw new ErreurDateFin(datefin, dateDebut);
+		else {
+			this.dateFin = datefin;
+			gestionPersonnel.updateEmploye(this);
+		}
+	}
 
 	/**
-	 * Supprime l'employé. Si celui-ci est un administrateur, le root
-	 * récupère les droits d'administration sur sa ligue.
+	 * Supprime l'employÃ©. Si celui-ci est un administrateur, le root
+	 * rÃ©cupÃ¨re les droits d'administration sur sa ligue.
 	 */
 	
 	public void remove()
@@ -217,7 +230,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	@Override
 	public String toString()
 	{
-		String res = nom + " " + prenom + " " + mail + " (";
+		String res = nom + " " + prenom + " " + mail +" "+dateDebut+" "+dateFin+" (";
 		if (estRoot())
 			res += "super-utilisateur";
 		else
