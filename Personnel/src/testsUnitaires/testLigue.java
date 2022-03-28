@@ -48,7 +48,7 @@ class testLigue
 		Ligue ligue = gestionPersonnel.addLigue("Football");
 		Employe employe = ligue.addEmploye("Afonso","Jason","jason@gmail.com",LocalDate.parse("2021-01-08"),LocalDate.parse("2022-06-06"),"test");
 		employe.remove();
-		assertFalse(false,ligue.getEmployes().contains(employe));
+		assertEquals(false,ligue.getEmployes().contains(employe));
 		
 	}
 	
